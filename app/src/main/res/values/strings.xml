@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Sample Kotlin App</string>
+    <string name="a_txt">Text</string>
+    <string name="a_title">Title</string>
+    <string name="menu_button_title_1">Tab1</string>
+    <string name="menu_button_title_2">Tab2</string>
+    <string name="menu_button_title_3">Tab3</string>
+    <string name="transfer_txt">Transfer</string>
+    <string name="more_options_menu_txt">More Options</string>
+    <string name="more_options_menu_title">More Options Title</string>
+    <string name="some_action_menu_title">Some Action Title</string>
+</resources>

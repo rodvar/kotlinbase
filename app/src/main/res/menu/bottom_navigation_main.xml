@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_item_accounts"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/menu_button_title_1"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_transfer"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/menu_button_title_2"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_item_more"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/menu_button_title_3"
+        app:showAsAction="ifRoom" />
+</menu>

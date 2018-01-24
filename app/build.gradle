@@ -1,0 +1,130 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    defaultConfig {
+
+        print(app_version_name)
+        applicationId "com.rodvar.kotlinbase"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode Integer.parseInt(project.app_version_code)
+        versionName project.app_version_name
+
+        testInstrumentationRunner "com.rodvar.kotlinbase.MockableAndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    kapt {
+        generateStubs = true
+    }
+    sourceSets {
+        androidTest.assets.srcDirs += 'src/androidTest/assets' // used for json mock server responses
+    }
+}
+
+project.ext {
+    supportLibraryVersion = "26.0.2"
+    daggerVersion = "2.11"
+    constraintLayout = "1.0.2"
+    iosLikeButtons = "1.4.6"
+    rxJava = "2.0.1"
+    rxRelay = "2.0.0"
+    retrofit = "2.3.0"
+    userAgentFactory = "0.0.1"
+    googleHttpClient = "1.19.0"
+
+    junit = "4.12"
+    testRunner = "1.0"
+    espresso = "3.0.0"
+    mockitoKotlin = "1.5.0"
+    hamcrestMatchers = "2.0.0.0"
+    restMock = "0.2.2"
+    kotlinTestSupport = "1.1.4-3"
+}
+
+dependencies {
+//    Tech Enablement
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$project.supportLibraryVersion"
+    // Reactive Java: Because android is basically a reactive platform. Migrate reactive behaviour to it's use is the goal
+    implementation "io.reactivex.rxjava2:rxandroid:$project.rxJava"
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    implementation "io.reactivex.rxjava2:rxjava:$project.rxJava"
+    // Reactive event bus
+    implementation ("com.jakewharton.rxrelay2:rxrelay:$project.rxRelay") {
+        exclude module: 'rxjava'
+    }
+    
+//    Data
+    // networking
+    implementation "com.squareup.retrofit2:retrofit:$project.retrofit"
+    implementation("com.squareup.retrofit2:converter-gson:$project.retrofit") {
+        exclude module: "retrofit"
+    }
+    implementation("com.squareup.retrofit2:adapter-rxjava2:$project.retrofit") {
+        exclude module: "retrofit"
+        exclude module: "rxjava"
+    }
+    // User Agent Factory
+    implementation "com.quasar.android:android-user-agent-factory:$project.userAgentFactory"
+
+    // The following 2 http client dependencies are included only to support a legacy code dependency
+    // which is not really doing networking, need to analyse removal
+    implementation("com.google.http-client:google-http-client:$project.googleHttpClient") {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation("com.google.http-client:google-http-client-gson:$project.googleHttpClient") {
+        exclude group: "com.google.code.gson", module: "gson"
+        exclude group: "com.google.http-client", module: "google-http-client"
+    }
+
+//    DI
+    // Dagger Core
+    provided "com.google.dagger:dagger:$project.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
+
+    // Dagger Android
+    compile "com.google.dagger:dagger-android:$project.daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+    compile "com.google.dagger:dagger-android-support:$project.daggerVersion"
+
+//    UI
+    implementation "com.android.support:appcompat-v7:$project.supportLibraryVersion"
+    implementation("com.android.support:design:$project.supportLibraryVersion") {
+        exclude module: 'support-v4'
+        exclude module: 'support-compat'
+        exclude module: 'support-core-ui'
+    }
+    implementation "com.android.support.constraint:constraint-layout:$project.constraintLayout"
+
+    // iOS like toggle buttons
+    implementation("com.kyleduo.switchbutton:library:$project.iosLikeButtons") {
+        exclude module: 'appcompat-v7'
+    }
+
+//    Testing
+    testImplementation "junit:junit:$project.junit"
+    androidTestImplementation "com.android.support.test:runner:$project.testRunner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$project.espresso"
+    // Mockito-Kotlin
+    testImplementation "com.nhaarman:mockito-kotlin:$project.mockitoKotlin"
+    // Hamcrest - As suggested by RESTmock documentation
+    testImplementation "org.hamcrest:hamcrest-junit:$project.hamcrestMatchers"
+    // RESTMock: Mock the server calls easy
+    androidTestImplementation "com.github.andrzejchm.RESTMock:android:$project.restMock"
+    // Kotlin Test Support
+    testImplementation "org.jetbrains.kotlin:kotlin-test:$project.kotlinTestSupport"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$project.kotlinTestSupport"
+}

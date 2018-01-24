@@ -1,0 +1,9 @@
+{
+  "status": {
+    "code": "200",
+    "message": "Success"
+  },
+  "questionsResponse": [
+    "Best friend's month of birth"
+  ]
+}
