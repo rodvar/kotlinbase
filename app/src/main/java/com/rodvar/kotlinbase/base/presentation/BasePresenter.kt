@@ -18,7 +18,7 @@ abstract class BasePresenter : AppPresenter {
     private fun changeTitle() {
         try {
             if (view.title != NO_VIEW)
-                (view as BaseFragment).activity.setTitle(view.title)
+                (view as BaseFragment).activity?.setTitle(view.title)
         } catch (e: Exception) {
             Logger.error(javaClass.simpleName, "Failed to change title", e)
         }

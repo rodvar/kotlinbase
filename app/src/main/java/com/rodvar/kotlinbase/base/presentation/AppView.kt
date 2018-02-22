@@ -19,6 +19,7 @@ interface AppView {
     /**
      * @return the app context for this view
      */
+    @Throws(NoContextException::class)
     fun context(): Context
 
     /**
@@ -33,5 +34,7 @@ interface AppView {
     fun loadFragment(containerId: Int = R.id.fragment_container, fragmentToLoad: BaseFragment,
                      addToBackStack: Boolean = false, addToBackStackTag: String? = null,
                      animate: Boolean = false)
+
+    class NoContextException : Exception()
 
 }

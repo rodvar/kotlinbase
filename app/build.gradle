@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
     defaultConfig {
 
         print(app_version_name)
         applicationId "com.rodvar.kotlinbase"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode Integer.parseInt(project.app_version_code)
         versionName project.app_version_name
 
@@ -32,7 +32,7 @@ android {
 }
 
 project.ext {
-    supportLibraryVersion = "26.0.2"
+    supportLibraryVersion = "27.0.2"
     daggerVersion = "2.11"
     constraintLayout = "1.0.2"
     iosLikeButtons = "1.4.6"
@@ -53,6 +53,7 @@ project.ext {
 
 dependencies {
 //    Tech Enablement
+    implementation project(':kandroidbase')
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$project.supportLibraryVersion"
     // Reactive Java: Because android is basically a reactive platform. Migrate reactive behaviour to it's use is the goal

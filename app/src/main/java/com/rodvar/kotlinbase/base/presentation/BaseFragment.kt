@@ -32,11 +32,12 @@ abstract class BaseFragment : Fragment(), AppView {
     /**
      *
      */
-    final override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    final override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                           savedInstanceState: Bundle?): View? {
         return inflater?.inflate(getLayoutResId(), container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    final override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onViewCreated()
     }
@@ -62,12 +63,17 @@ abstract class BaseFragment : Fragment(), AppView {
     open fun onBackPressed(): Boolean = presenter.onBackPressed()
 
     override fun context(): Context {
-        return activity
+        when (this.isActivityReady()) {
+            true -> return activity as Context
+            else -> throw AppView.NoContextException()
+        }
     }
 
-
+    /**
+     *
+     */
     fun toast(text: String) {
-        if (this.activity != null && !this.activity.isFinishing)
+        if (this.isActivityReady())
             (this.activity as BaseActivity).toast(text)
         else
             Logger.debug(javaClass.simpleName, "Cannot toast, activity unready")
@@ -82,8 +88,12 @@ abstract class BaseFragment : Fragment(), AppView {
     override fun loadFragment(containerId: Int, fragmentToLoad: BaseFragment,
                               addToBackStack: Boolean, addToBackStackTag: String?,
                               animate: Boolean) {
-        if (this.activity != null && !this.activity.isFinishing)
+        if (this.isActivityReady())
             (this.activity as BaseActivity).loadFragment(containerId, fragmentToLoad,
                     addToBackStack, addToBackStackTag, animate)
+    }
+
+    private fun isActivityReady(): Boolean {
+        return this.activity != null && !this.activity!!.isFinishing
     }
 }
