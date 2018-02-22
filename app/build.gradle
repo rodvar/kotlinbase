@@ -48,7 +48,7 @@ project.ext {
     mockitoKotlin = "1.5.0"
     hamcrestMatchers = "2.0.0.0"
     restMock = "0.2.2"
-    kotlinTestSupport = "1.1.4-3"
+    kotlinTestSupport = "1.1.51"
 }
 
 dependencies {
